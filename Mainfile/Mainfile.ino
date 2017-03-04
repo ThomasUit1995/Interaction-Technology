@@ -22,9 +22,6 @@ const int airWick = 13;
 //Override trigger button
 const int triggerPin = 17;
 
-//RGB
-
-int colourRed = 0, colourGreen = 0, colourBlue = 255;
 
 //Manual override button pin 17
 int triggerState;
@@ -47,8 +44,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
-   
   
   triggerState = digitalRead(triggerPin);
   
@@ -70,11 +65,59 @@ void loop() {
       triggerInUse = false;
       sprayMode = false;
     }
-    
   }
 
   switch(state){
+    //State not in use : LED OFF
     case notInUse:
+    selectColour(0,0,0);
+    break;
+
+    //State in use number 1 : LED GREEN
+    case inUseNr1:
+    selectColour(0,255,0);
+    break;
+
+    //State in use number 2 : LED GREEN BLINKING
+    case inUseNr2:
+    if(((millis() - blinkTime) > blinkingTime)){
+      blinkTime = millis();
+      selectColour(0, 255, 0);
+    }
+    else if((millis() - blinkTime) > blinkingDelay){
+      blinkTime = millis();
+      selectColour(0, 0, 0);
+    }
+    break;
+
+    //State in use cleaning : LED BLUE
+    case inUseClean:
+    selectColour(0,0,255);
+    break;
+
+    //State in use but unknown : LED RED
+    case inUseUnkn:
+    selectColour(255,0,0);
+    break;
+
+    //State manual override mode triggered : LED RED BLINKING
+    case TRIGGERED:
+    if((millis() - triggerTime) > triggerDelay){
+      sprayMode = true;
+      state = notInUse;
+    }
+    if(((millis() - blinkTime) > blinkingTime)){
+      blinkTime = millis();
+      selectColour(255, 0, 0);
+    }
+    else if((millis() - blinkTime) > blinkingDelay){
+      blinkTime = millis();
+      selectColour(0, 0, 0);
+    }
+    break;
+
+    //State operator manu active : LED BLUE BLINKING
+    case operatorMenu:
     if(((millis() - blinkTime) > blinkingTime)){
       blinkTime = millis();
       selectColour(0, 0, 255);
@@ -84,31 +127,9 @@ void loop() {
       selectColour(0, 0, 0);
     }
     break;
-    case inUseNr1:
-    break;
-    case inUseNr2:
-    break;
-    case inUseClean:
-    break;
-    case inUseUnkn:
-    break;
-    case TRIGGERED:
-    if((millis() - triggerTime) > triggerDelay){
-      sprayMode = true;
-      state = notInUse;
-    }
-    break;
-    case operatorMenu:
-    break;
   }
   
-  if(state == TRIGGERED){
-    
-  }
-  //else if( motionDetector() ){
-    
-  //}
-  else{
+  if(state != TRIGGERED){
     state = notInUse;
   }
 }

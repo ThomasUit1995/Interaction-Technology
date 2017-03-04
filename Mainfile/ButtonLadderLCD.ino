@@ -1,11 +1,8 @@
-#include <LiquidCrystal.h>
+/*#include <LiquidCrystal.h>
 
 LiquidCrystal lcd(0,1,2,3,4,5);
 
 const int buttonPin = 13;
-const int ledR = 9;
-const int ledG = 10;
-const int ledB = 11; 
 
 const int BUTTON1 = 1;
 const int BUTTON2 = 2;
@@ -35,14 +32,9 @@ void setup(){
 }
 
 void loop(){
-  //analogWrite(ledR, brightnessR);
-  //analogWrite(ledG, brightnessG);
-  //analogWrite(ledB, brightnessB);
-
   int reading = analogRead(buttonPin);
 
   Serial.println(reading);
-/*
   
   int tmpButtonState = LOW;
   
@@ -94,7 +86,6 @@ void loop(){
       state2();
     }
   }
-  */
 }
 
 void state0(){
@@ -120,3 +111,4 @@ void state2(){
   lcd.setCursor(0,1);
   lcd.print("drie");
 }
+*/
