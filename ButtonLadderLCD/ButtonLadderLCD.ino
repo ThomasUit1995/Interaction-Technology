@@ -2,7 +2,7 @@
 
 LiquidCrystal lcd(0,1,2,3,4,5);
 
-const int buttonPin = A0;
+const int buttonPin = 13;
 const int ledR = 9;
 const int ledG = 10;
 const int ledB = 11; 

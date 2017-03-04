@@ -15,7 +15,7 @@ String calculateTemp(){
   if ( !ds.search(addr)) {
       //Serial.print("No more addresses.\n");
       ds.reset_search();
-      return;
+      return "";
   }
   
   ds.reset();
